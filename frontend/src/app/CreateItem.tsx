@@ -16,6 +16,8 @@ import { toast } from "react-toastify";
 import { ToastMsg } from "@/app/components/ui/toast/ToastMsg";
 import useAuthClient from "@/hooks/useAuthClient";
 import { createItem } from "@/api/item";
+import { ButtonReactAria } from "@/app/components/ui/ButtonReactAria";
+import { Button } from "react-aria-components";
 
 interface ICreateItemForm {
   name: string;
@@ -138,6 +140,12 @@ const CreateItem = () => {
           Создать айтем
         </button>
       </div>
+      <ButtonReactAria onPress={() => alert(123)}>
+        ButtonReactAria
+      </ButtonReactAria>
+      <Button onPress={() => alert("Button react-aria-components")}>
+        Button react-aria-components
+      </Button>
     </section>
   );
 };
