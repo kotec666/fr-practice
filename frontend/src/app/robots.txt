@@ -1,0 +1,22 @@
+User-Agent: Googlebot
+Allow: /
+Disallow: /reg
+Disallow: /auth
+Disallow: /_next
+Disallow: /api
+
+User-Agent: Yandex
+Allow: /
+Disallow: /reg
+Disallow: /auth
+Disallow: /_next
+Disallow: /api
+
+User-Agent: *
+Allow: /
+Disallow: /reg
+Disallow: /auth
+Disallow: /_next
+Disallow: /api
+
+Sitemap: http://localhost:3000/sitemap.xml
