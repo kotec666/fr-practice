@@ -13,6 +13,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import ErrorTextWrapper from "@/app/components/ui/ErrorTextWrapper/ErrorTextWrapper";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/api/user";
+import { checkIfFormErrorNotExist } from "@/helpers/checkIfFormErrorNotExist";
 
 interface IRegForm {
   email: string;
@@ -87,6 +88,10 @@ const RegForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
             label="email"
+            aria-invalid={
+              !checkIfFormErrorNotExist(errors, state.errors, "email")
+            }
+            aria-errormessage="err-email"
             value={value}
             onBlur={onBlur}
             onChange={(value) => {
@@ -99,13 +104,15 @@ const RegForm = () => {
       />
       <div>
         {state.errors["email"] ? (
-          <ErrorTextWrapper>{state.errors["email"]}</ErrorTextWrapper>
+          <ErrorTextWrapper id="err-email">
+            {state.errors["email"]}
+          </ErrorTextWrapper>
         ) : (
           <ErrorMessage
             errors={errors}
             name="email"
             render={({ message }) => (
-              <ErrorTextWrapper>{message}</ErrorTextWrapper>
+              <ErrorTextWrapper id="err-email">{message}</ErrorTextWrapper>
             )}
           />
         )}
@@ -133,6 +140,10 @@ const RegForm = () => {
           <Input
             label="name"
             type="text"
+            aria-invalid={
+              !checkIfFormErrorNotExist(errors, state.errors, "name")
+            }
+            aria-errormessage="err-name"
             value={value}
             onBlur={onBlur}
             onChange={(value) => {
@@ -145,13 +156,15 @@ const RegForm = () => {
       />
       <div>
         {state.errors["name"] ? (
-          <ErrorTextWrapper>{state.errors["name"]}</ErrorTextWrapper>
+          <ErrorTextWrapper id="err-name">
+            {state.errors["name"]}
+          </ErrorTextWrapper>
         ) : (
           <ErrorMessage
             errors={errors}
             name="name"
             render={({ message }) => (
-              <ErrorTextWrapper>{message}</ErrorTextWrapper>
+              <ErrorTextWrapper id="err-name">{message}</ErrorTextWrapper>
             )}
           />
         )}
@@ -179,6 +192,10 @@ const RegForm = () => {
           <Input
             label="password"
             type="password"
+            aria-invalid={
+              !checkIfFormErrorNotExist(errors, state.errors, "password")
+            }
+            aria-errormessage="err-password"
             value={value}
             onBlur={onBlur}
             onChange={(value) => {
@@ -191,13 +208,15 @@ const RegForm = () => {
       />
       <div>
         {state.errors["password"] ? (
-          <ErrorTextWrapper>{state.errors["password"]}</ErrorTextWrapper>
+          <ErrorTextWrapper id="err-password">
+            {state.errors["password"]}
+          </ErrorTextWrapper>
         ) : (
           <ErrorMessage
             errors={errors}
             name="password"
             render={({ message }) => (
-              <ErrorTextWrapper>{message}</ErrorTextWrapper>
+              <ErrorTextWrapper id="err-password">{message}</ErrorTextWrapper>
             )}
           />
         )}
@@ -225,6 +244,10 @@ const RegForm = () => {
           <Input
             label="repeat password"
             type="password"
+            aria-invalid={
+              !checkIfFormErrorNotExist(errors, state.errors, "repeatPassword")
+            }
+            aria-errormessage="err-repeatPassword"
             value={value}
             onBlur={onBlur}
             onChange={(value) => {
@@ -237,13 +260,17 @@ const RegForm = () => {
       />
       <div>
         {state.errors["repeatPassword"] ? (
-          <ErrorTextWrapper>{state.errors["repeatPassword"]}</ErrorTextWrapper>
+          <ErrorTextWrapper id="err-repeatPassword">
+            {state.errors["repeatPassword"]}
+          </ErrorTextWrapper>
         ) : (
           <ErrorMessage
             errors={errors}
             name="repeatPassword"
             render={({ message }) => (
-              <ErrorTextWrapper>{message}</ErrorTextWrapper>
+              <ErrorTextWrapper id="err-repeatPassword">
+                {message}
+              </ErrorTextWrapper>
             )}
           />
         )}

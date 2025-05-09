@@ -52,8 +52,9 @@ export class UserService {
     await this.userRepository.save(data);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-expect-error
-    return exclude(data, 'password');
+    // @ts-expect-error
+    delete data.password;
+    return data;
   }
 
   // нужен для auth/sign-in. отдает пользователя вместе с паролем

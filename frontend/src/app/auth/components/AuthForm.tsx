@@ -87,6 +87,10 @@ const RegForm = () => {
             label="email"
             value={value}
             onBlur={onBlur}
+            aria-invalid={
+              !checkIfFormErrorNotExist(errors, state.errors, "email")
+            }
+            aria-errormessage="err-email"
             onChange={(value) => {
               if (!value.target.value.includes(" ")) {
                 onChange(value);
@@ -97,13 +101,15 @@ const RegForm = () => {
       />
       <div>
         {state.errors["email"] ? (
-          <ErrorTextWrapper>{state.errors["email"]}</ErrorTextWrapper>
+          <ErrorTextWrapper id="err-email">
+            {state.errors["email"]}
+          </ErrorTextWrapper>
         ) : (
           <ErrorMessage
             errors={errors}
             name="email"
             render={({ message }) => (
-              <ErrorTextWrapper>{message}</ErrorTextWrapper>
+              <ErrorTextWrapper id="err-email">{message}</ErrorTextWrapper>
             )}
           />
         )}
@@ -131,6 +137,10 @@ const RegForm = () => {
           <Input
             label="password"
             type="password"
+            aria-invalid={
+              !checkIfFormErrorNotExist(errors, state.errors, "password")
+            }
+            aria-errormessage="err-password"
             value={value}
             onBlur={onBlur}
             onChange={(value) => {
@@ -143,13 +153,15 @@ const RegForm = () => {
       />
       <div>
         {state.errors["password"] ? (
-          <ErrorTextWrapper>{state.errors["password"]}</ErrorTextWrapper>
+          <ErrorTextWrapper id="err-password">
+            {state.errors["password"]}
+          </ErrorTextWrapper>
         ) : (
           <ErrorMessage
             errors={errors}
             name="password"
             render={({ message }) => (
-              <ErrorTextWrapper>{message}</ErrorTextWrapper>
+              <ErrorTextWrapper id="err-password">{message}</ErrorTextWrapper>
             )}
           />
         )}

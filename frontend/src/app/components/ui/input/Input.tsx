@@ -7,15 +7,17 @@ interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Input = (props: IInputProps) => {
   return (
-    <div className="input">
-      <label htmlFor={props.label}>{props.label}</label>
-      <input
-        id={props.label}
-        onChange={props.onChange}
-        value={props.value}
-        {...props}
-      />
-    </div>
+    <>
+      <div className="input">
+        <label htmlFor={props.label}>{props.label}</label>
+        <input
+          id={props.label}
+          onChange={props.onChange}
+          value={props.value}
+          {...props}
+        />
+      </div>
+    </>
   );
 };
 
