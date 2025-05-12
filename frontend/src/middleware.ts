@@ -38,7 +38,7 @@ const securityHeaders = [
     key: "Access-Control-Allow-Methods", // Разрешенные HTTP-методы
     value: "GET, POST, PUT, DELETE, OPTIONS",
   },
-  { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" }, // Разрешенные заголовки запросов
+  { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" }, // Разрешает браузеру отправлять заголовки `Content-Type` и `Authorization` в CORS-запросах
   { key: "X-DNS-Prefetch-Control", value: "on" }, // Управление предварительным разрешением DNS
   { key: "X-Frame-Options", value: "SAMEORIGIN" }, // Защита от clickjacking
   { key: "X-Content-Type-Options", value: "nosniff" }, // Отключение MIME-sniffing
@@ -46,6 +46,9 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" }, // Контроль передачи Referer
   { key: "Timing-Allow-Origin", value: `${env.web_url}` }, // Доступ к timing-информации для указанных доменов
   { key: "X-XSS-Protection", value: "1; mode=block" }, // Защита от XSS-атак (устарело, но поддерживается)
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" }, // Изолирует окно/вкладку от доступа через `window.opener` со сторонних доменов
+  { key: "Cross-Origin-Embedder-Policy", value: "require-corp" }, // Блокирует загрузку кросс-доменных ресурсов без явного разрешения (CORS, CORP)
+  { key: "Cross-Origin-Resource-Policy", value: "same-site" }, // Предотвращает загрузку ваших ресурсов (например, изображений, PDF) на чужих сайтах через <img>, <iframe>, <script> и т. д.
   {
     key: "Permissions-Policy", // Контроль доступа к API браузера и функций
     value:
@@ -57,6 +60,8 @@ export function middleware(request: NextRequest) {
   const { nextUrl } = request;
   const token = request.cookies.get("token")?.value;
   const isDev = env.NODE_ENV === "development";
+  const host = request.nextUrl.host;
+  const protocol = request.nextUrl.protocol;
 
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const scriptSrc = [
@@ -64,7 +69,7 @@ export function middleware(request: NextRequest) {
     `'nonce-${nonce}'`,
     isDev ? "'unsafe-eval'" : "",
     "'strict-dynamic'",
-    env.web_url,
+    `${protocol}//${host}`,
   ]
     .filter(Boolean)
     .join(" ");
